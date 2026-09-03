@@ -19,7 +19,7 @@ RUN apt-get update -y && \
     supervisor \
     ca-certificates \
     openssh-server \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \\
     && mkdir -p /var/run/sshd
 
 COPY entrypoint.sh /usr/local/bin/init.sh
