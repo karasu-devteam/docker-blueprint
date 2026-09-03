@@ -7,6 +7,13 @@ if [ -n "$PASSWD" ]; then
     echo "root:$PASSWD" | chpasswd
 fi
 
+if [ -n "$SSH_KEY" ]; then
+    mkdir -p /root/.ssh
+    chmod 700 /root/.ssh
+    echo "$SSH_KEY" >> /root/.ssh/authorized_keys
+    chmod 600 /root/.ssh/authorized_keys
+fi
+
 sed -i "s/^#\?Port .*/Port $PORT/" /etc/ssh/sshd_config
 sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 sed -i 's/^#\?PermitEmptyPasswords.*/PermitEmptyPasswords no/' /etc/ssh/sshd_config
